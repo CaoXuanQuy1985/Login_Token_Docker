@@ -1,18 +1,25 @@
 package com.nexttech.demoToken.controller.information;
 
 import com.nexttech.demoToken.model.UserModel;
+import com.nexttech.demoToken.service.security.AuthUserService;
 import com.nexttech.demoToken.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class UserController {
 
     private UserService userService;
 
+    private AuthUserService authService;
+
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, AuthUserService authService) {
         this.userService = userService;
+        this.authService = authService;
     }
 
     @GetMapping("/user/all")
@@ -33,5 +40,10 @@ public class UserController {
     @PostMapping("/user/save")
     public UserModel save(@RequestBody UserModel user) {
         return userService.saveUser(user);
+    }
+
+    @GetMapping("/user/resource")
+    public ResponseEntity<String> getResource(HttpServletRequest request) {
+        return this.authService.getResource(request);
     }
 }

@@ -11,4 +11,8 @@ public interface AuthUserService extends InterfaceService<UserModel> {
     UserModel findByToken(String token);
 
     ResponseEntity<String> login(HttpServletRequest request, String username, String password);
+
+    String refreshToken(HttpServletRequest request);
+
+    ResponseEntity<String> getResource(HttpServletRequest request);
 }

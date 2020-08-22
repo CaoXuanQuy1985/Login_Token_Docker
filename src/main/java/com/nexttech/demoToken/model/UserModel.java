@@ -1,8 +1,7 @@
 package com.nexttech.demoToken.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 public class UserModel {
@@ -18,6 +17,13 @@ public class UserModel {
     private String password;
 
     private String token;
+
+    private Timestamp createdDateToken = new Timestamp(System.currentTimeMillis());
+
+    private Timestamp expiredDateToken = new Timestamp(System.currentTimeMillis() + 60000);
+
+    @OneToOne(mappedBy = "userModel")
+    private RefreshToken refreshToken;
 
     public UserModel() {
     }
@@ -60,5 +66,29 @@ public class UserModel {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public Timestamp getCreatedDateToken() {
+        return createdDateToken;
+    }
+
+    public void setCreatedDateToken(Timestamp createdDateToken) {
+        this.createdDateToken = createdDateToken;
+    }
+
+    public Timestamp getExpiredDateToken() {
+        return expiredDateToken;
+    }
+
+    public void setExpiredDateToken(Timestamp expiredDateToken) {
+        this.expiredDateToken = expiredDateToken;
+    }
+
+    public RefreshToken getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(RefreshToken refreshToken) {
+        this.refreshToken = refreshToken;
     }
 }

@@ -22,4 +22,9 @@ public class LoginController {
     public ResponseEntity<String> login(HttpServletRequest request, @RequestParam("username") String username, @RequestParam("password") String password) {
         return this.authUserService.login(request, username, password);
     }
+
+    @PostMapping("/refresh-token")
+    public String refreshToken(HttpServletRequest request) {
+        return this.authUserService.refreshToken(request);
+    }
 }
